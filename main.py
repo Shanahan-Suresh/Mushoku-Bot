@@ -82,8 +82,8 @@ async def on_message(message):
 
     #responses correspond to choices
     responses = [
-              ["Come on bro, did he look that young ?","Close, but not quite","That's right, you got it !","D. If he was that old, he might've died from a heart attack instead."],
-              ["Terrifying, but not right.","Although most people believe he's evil, nobody calls him this.","Correct ! He's known as 'Dead End' because those who meet him will meet their 'dead end'. (or so the rumour goes)","A more accurate name out of all the choices, but sadly, very few people regard him as such.", "Also correct ! He's known as Guard Dog Ruijerd of Dead End during his time partying up with Rudeus and Eris. "],
+              ["Come on bro, did he look that young ?","Close, but not quite","That's right, you got it !","If he was that old, he might've died from a heart attack instead."],
+              ["Terrifying, but not right.","Although most people believe he's evil, nobody calls him this.","Correct ! He's known as 'Dead End' because those who meet him have their fates cut short (i.e reach a dead end in thier lives) , or so the rumour goes.","A more accurate name out of all the choices, but sadly, very few people regard him as such.", "Also correct ! He's known as Guard Dog Ruijerd of Dead End during his time partying up with Rudeus and Eris. "],
               ["A demon huh ? Although its true that Ghylaine's race often intermingles closely with the Demon race, she isn't a half-breed. Better luck next round !","Right ! Did you guess that based on her tail and fluffy ears ?","Sorry to say, there is no such race in Mushoku Tensei's world","What even is a 'Forestor' ? Someone who lives in a forest ? I sure don't know."]
               ]
     
@@ -103,7 +103,8 @@ async def on_message(message):
         await bot_message.add_reaction(reactions[i])
 
 
-    answered = False
+    #answered = False
+      
     #Check and return reaction user and all available reactions
     def check(reaction, user):
         reacts = ["🇦", "🇧", "🇨", "🇩", "🇪"]
@@ -121,29 +122,101 @@ async def on_message(message):
       await message.channel.send('Timeout, try to react faster next time')
 
     #carry on if reaction given
-    else:
-      #if
-      #elif isinstance(correct_answer, list):
-      #if  
+    else:   
+          channel = message.channel
+      
           if reaction.emoji == "🇦":
-              embedded = discord.Embed(title = f"{response[0]}\n")
-              await message.channel.send(embed = embedded)
+              flag = check_answer(correct_answer, 'A')
+              await create_embed_response(flag, response[0], channel)
+            
           elif reaction.emoji == "🇧":
-              await message.channel.send(response[1])
+              flag = check_answer(correct_answer, 'B')
+              await create_embed_response(flag, response[1], channel)
+            
           elif reaction.emoji == "🇨":
-              await message.channel.send(response[2])
+              flag = check_answer(correct_answer, 'C')
+              await create_embed_response(flag, response[2], channel)
+            
           elif reaction.emoji == "🇩":
-              await message.channel.send(response[3])
+              flag = check_answer(correct_answer, 'D')
+              await create_embed_response(flag, response[3], channel)
+            
           elif reaction.emoji == "🇪":
-              await message.channel.send(response[4])
+              flag = check_answer(correct_answer, 'E')
+              await create_embed_response(flag, response[4], channel)
+            
           else:
               await message.channel.send('What kind of answer is that ?')
+
+          if flag == True :
+            async def add_points(user):
+              with open("users.json","r") as file:
+                users = json.load(file)
+                
+                user_id = str(user.id)
+                
+              #adds points to existing user
+              if user_id in users:
+                with open("users.json","w") as file:
+                  users[user_id]["Points"] += 10
+                  json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
+                  await message.channel.send('10 Points Awarded !')
+                  
+              #create record and then add points to new user
+              else:
+                with open("users.json","w") as file:
+                  users = {}
+                  users[user_id] = {}
+                  users[user_id]["Points"] = 10
+                  json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
+                  await message.channel.send('New adventurer detected ! \nWelcome {}! Your points are now being tracked'.format(user.mention))
+                  await message.channel.send('10 Points Awarded !')           
+            await add_points(user)
         
 
-  
-  if message.content.startswith("MT Trivia"):
-    await trivia_mode()    
 
+  if message.content.startswith("MT Trivia"):
+    await trivia_mode()
+
+  if message.content.startswith("MT Help"):
+    channel = message.channel
+    await display_embed(channel)
+
+#Function to display help menu (written in notepad, indents may cause issues)
+async def display_embed(channel):
+	embed = discord.Embed(
+		title = 'Available Commands',
+		description = 'Ver 0.1 - Trivia mode and point system ',
+		colour = discord.Colour.orange()
+	)
+
+	embed.set_footer(text='In development v0.1')
+	embed.set_image(url='https://media.discordapp.net/attachments/905934829659496458/920654143721467944/Mushoku_Tensei_Isekai_Ittara_Honki_Dasu_Logo_Japones.png')
+	file = discord.File("thumbnail2.png")
+	embed.set_thumbnail(url="attachment://thumbnail2.png")
+	embed.set_author(name = 'MushokuBot Help', icon_url='https://cdn.discordapp.com/attachments/905934829659496458/920656680830791740/286158_-_Copy.jpg')
+	embed.add_field(name=':scroll: MT Trivia', value = 'Start a round of Mushoku Tensei trivia !', inline = True)
+	embed.add_field(name=':diamond_shape_with_a_dot_inside: MT Points', value = 'View your current MT points', inline = True)
+	embed.add_field(name=':grey_question: MT Help', value = 'View all available commands', inline = False)
+	
+	await channel.send(file = file, embed=embed)
+
+#Fuction to check if given response is the right answer
+def check_answer(correct_answer, response):
+  if response == correct_answer:
+    return True
+
+  elif isinstance(correct_answer, list) and (response in correct_answer):
+    return True
+          
+  else:
+    return False   
+
+async def create_embed_response(correct_answer, response, channel):
+  embedded = discord.Embed(title = f"{correct_answer}! {response}\n")
+  await channel.send(embed = embedded)
+  return
+        
 client.run(token)
 
 # The following line is optional: it removes the reaction added by the user 
