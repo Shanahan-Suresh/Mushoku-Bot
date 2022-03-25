@@ -47,7 +47,6 @@ async def on_message(message):
       #track new user
       else:
         with open("users.json","w") as file:
-          users = {}
           users[user_id] = {}
           users[user_id]["Points"] = 0
           json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
@@ -239,7 +238,6 @@ async def on_message(message):
               #create record and then add points to new user
               else:
                 with open("users.json","w") as file:
-                  users = {}
                   users[user_id] = {}
                   users[user_id]["Points"] = 10
                   json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
@@ -269,7 +267,7 @@ async def display_embed(channel):
 	file = discord.File("thumbnail2.png")
 	embed.set_thumbnail(url="attachment://thumbnail2.png")
 	embed.set_author(name = 'MushokuBot Help', icon_url='https://cdn.discordapp.com/attachments/905934829659496458/920656680830791740/286158_-_Copy.jpg')
-	embed.add_field(name=':scroll: MT Trivia', value = 'Start a round of Mushoku Tensei trivia !\n(single-player only)', inline = True)
+	embed.add_field(name=':scroll: MT Trivia', value = 'Start a round of Mushoku Tensei trivia !\n(single player only)', inline = True)
 	embed.add_field(name=':diamond_shape_with_a_dot_inside: MT Points', value = 'View your current MT points', inline = True)
 	embed.add_field(name=':grey_question: MT Help', value = 'View all available commands', inline = False)
 	
