@@ -4,8 +4,10 @@ import requests
 import json
 import asyncio
 import random
+from keep_alive import keep_alive
 
 #token and verification
+keep_alive()
 token = os.environ['TOKEN']
 client = discord.Client()
 
@@ -42,13 +44,17 @@ async def on_message(message):
         with open("users.json","r") as file:
           user_points = users[user_id]["Points"]
           rank = rank_check(user_points)
-          await message.channel.send("{}'s Adventurer Log\n-------------------------------\nMT Points ({})\nRank - {}".format(user.mention, user_points, rank))
+          rank_change = rank_write(message, rank)
+          if(rank_change):
+            await message.channel.send("Congratulations {} ! You've ranked up to '{}' ! Keep up the good work !".format(user.mention, rank))
+          await message.channel.send("{}'s Adventurer Log\n------------------------------------\nMT Points ({})\nRank - {}".format(user.mention, user_points, rank))
 
       #track new user
       else:
         with open("users.json","w") as file:
           users[user_id] = {}
           users[user_id]["Points"] = 0
+          users[user_id]["Rank"] = "None"
           json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
           await message.channel.send('New adventurer detected ! \nWelcome {}! Your points are now being tracked'.format(user.mention))
 
@@ -58,6 +64,13 @@ async def on_message(message):
           users[user_id]["Points"] = 0
           json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
           await message.channel.send('All points cleared')
+
+    #clear all points
+    if msg == "MT Points 800":
+      with open("users.json","w") as file:
+          users[user_id]["Points"] = 800
+          json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
+          await message.channel.send('MT Points set to 500')
 
 		
 
@@ -188,7 +201,7 @@ async def on_message(message):
         
 
     try:
-      reaction, user = await client.wait_for('reaction_add', timeout=20.0, check=check)
+      reaction, user = await client.wait_for('reaction_add', timeout=25.0, check=check)
     
       #Stop round if time limit exceeded
     except asyncio.TimeoutError:
@@ -240,6 +253,7 @@ async def on_message(message):
                 with open("users.json","w") as file:
                   users[user_id] = {}
                   users[user_id]["Points"] = 10
+                  users[user_id]["Rank"] = "None"
                   json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
                   await message.channel.send('New adventurer detected ! \nWelcome {}! Your points are now being tracked'.format(user.mention))
                              
@@ -293,6 +307,20 @@ def rank_check(user_points):
     rank = 'None'
 
   return rank
+
+def rank_write(message, rank):
+  with open("users.json","r") as file:
+    users = json.load(file)
+    user = message.author
+    user_id = str(user.id)
+    old_rank = users[user_id]["Rank"]
+    
+  with open("users.json","w") as file:
+    users[user_id]["Rank"] = rank
+    json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
+
+  if rank != old_rank:
+    return True
 #Fuction to check if given response is the right answer
 def check_answer(correct_answer, response):
   if response == correct_answer:
