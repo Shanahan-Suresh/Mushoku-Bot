@@ -7,7 +7,7 @@ import random
 from keep_alive import keep_alive
 
 #token and verification
-keep_alive()
+#keep_alive()
 token = os.environ['TOKEN']
 client = discord.Client()
 
@@ -108,7 +108,13 @@ async def on_message(message):
     "The spears wielded by Supard warriors come from...?" : "C",
     "God-tier healing magic is capable of reviving even the dead." : "B",
     "Paul's adventuring party was known as '____', and they were a(n) _ tier adventuring party" : "A",
-      "Ghislaine Dedoldia is also called ___ by some people." : "C"
+      "Ghislaine Dedoldia is also called ___ by some people." : "C",
+      "Who started the First Great Human-Demon War ? " : "D",
+      "Who started the Second Great Human-Demon War ? " : "A",
+      "Who started the Third Great Human-Demon War ? " : "C",
+      "During Laplace's War, Perugius and his six comrades became known as 'The Seven Heroes'. Which of these were not one of them ?\n(hint: think logically)" : "B",
+      "Which one of the following did not take part during the final battle against Laplace during the Third Great Human-Demon War ?\n(choose the most likely answer)" : "D",
+      "___ was held responsible for the Mana Calamity(Teleportation Incident) and sentenced to execution." : "D"
     }
 
     #choices correspond to questions.keys()
@@ -130,7 +136,7 @@ async def on_message(message):
               ["A. Dragon God Orsted","B. Sword God, Gal Farion", "C. Nanahoshi Shizuka (Silent Seven Stars)", "D. Saint Milis", "E. Ars, the Hero of Humanity"],
               ["A. Aish and Julie","B. Aisha and Norn","C. Lilia and Zenith", "D. Lucy and Lara"],
               ["A. 100","B. 10","C. 1","D. 0.01"],
-              ["A. Aiding the First Dragon God's destruction of all 6 other worlds.","B. Achieving true bankai at the age of 3","C. Defeating Demon God Laplace during the Fourth Great Human-Demon War","D. Opening a restaurant that made deep fried chicken"],
+              ["A. Aiding the First Dragon God's destruction of all 6 other worlds.","B. Achieving true bankai at the age of 3","C. Defeating Demon God Laplace during the Third Great Human-Demon War","D. Opening a restaurant that made deep fried chicken"],
       ["A. Central Continent","B. Begaritt Continent","C. Heaven Continent","D. Demon Continent"],
       ["A. Because of the teleportation traps of course !","B. Because of the 9-headed hydra deep within its depths","C. Because of the bloodthirsty monsters inside it","D. Because of the nearby empire of human-sized ants, numbering in the thousands"],
       ["A. A term to describe a particular formation of monsters, often used by adventurers.","B. The term used to describe Advanced-rank swordsmen who aspire to rise to the Saint-rank.","C. A region full of conflicting nations within the Central Continent.","D. A region full of conflicting Demon Lords in the Demon Continent."],
@@ -138,7 +144,14 @@ async def on_message(message):
       ["A. the strongest metal in the Demon Continent, Bofadeez","B. the hide of their first hunted dragon","C. their tails","D. their own ancestors, passed down through history"],
       ["A. True","B. False"],
       ["A. Fang of the Black Wolves...S","B. Paul's Merry Adventurers...A","C. Fittoa Search and Rescue...A","D. Steppe Ladder...S"],
-      ["A. Mad Dog","B. Mad Sword King","C. The Forest Goddess","D. Black Fang Sword King"]
+      ["A. Mad Dog","B. Mad Sword King","C. The Forest Goddess","D. Black Fang Sword King"],
+      ["A. Ars, the Hero of Humanity","B. Fighting God ||Alderaan(?)|| ","C. Demon God Laplace","D. Kishirika Kishirisu, the Great Demon Empress"],
+      ["A. Kishirika Kishirisu, the Great Demon Empress","B. Dragon God ||Laplace|| ","C. Fighting God ||Alderaan(?)||","D. Technique God Laplace"],
+      ["A. Armoured Dragon King, Perugius","B. Kishirika Kishirisu, the Great Demon Empress ","C. Demon God Laplace"],
+      ["A. North God Kalmon I","B. North God Kalmon III","C. Fire Emperor Feroze Star", "D. Dragon God Urupen", "E. Gaunis Freean Asura, the Queen of Asura"],
+      ["A. Armoured Dragon King, Perugius","B. North God Kalmon I","C. Ruijerd Superdia", "D. Fire Emperor Feroze Star"],
+      ["A. Kenya Boreas Greyrat","B. Hilda Boreas Greyrat","C. Philip Boreas Greyrat","D. Sauros Boreas Greyrat"]
+      
               ]
 
     #responses correspond to choices
@@ -149,10 +162,10 @@ async def on_message(message):
               ["A Migurd's body stops aging during their teen years, so I can see why you would think that.","Roxy first left her home and became an adventurer around this periord of her life. It will be some time before she eventually meets Rudeus.","Fun fact: Roxy and Rudeus are both mentally the same age !","Well... she would look the same even if she was this old. Good guess ?"],
               ["Lilia was the daughter of the sword master in the dojo where Pual first picked up swordsmanship. They parted ways after Paul bedded her and ran away from the dojo.","While Paul was living the life of an adventurer, Lilia was serving within the Asura Capital's palace as a royal handmaiden. They did not meet each other during this period of their lives.","Paul and Zenith retired from adventuring after getting married. At this point, they could handle themselves quite well and did not need to hire a maid.","Lilia left her service within the Asuran Palace due to an injury during an assasination attempt on the newborn princess. She was then hired by Paul shortly before Rudeus was born to take care of Zenith's home duties while she was expecting.\n\nHowever, this was not their first meeting."],
             ["Although Sylphy does have human blood running within her, it wouldn't be accurate to call her one as most of her characteristics originate from another heritage.","Her green hair may give off the impression that she's a demon. But she has no demon heritage. The cause of the green hair is instead because of....||the 'Laplace Factor'||","Technically correct ! Her father is half elf, half human, while her mom is a mix of human and beastfolk.","Absolutely right ! Her father is half elf, half human, while her mom is a mix of human and beastfolk. You sure know your stuff !", "A mixed person borne from these 2 races is very common, but Sylphy isn't one of them."],
-          ["Ruijerd is pretty old, but the first Human-Demon War took place ~10,000 years ago. An average Supard lives for 500~1000 years, so Ruijerd likely wasn't even born during that period.","Correct ! Ruijerd has only been confirmed to serve during the 4th Human-Demon War (aka Laplace's War). He was one of the most important figures during the war, his efforts shaping the current landscape of the world."],
+          ["Ruijerd is pretty old, but the first Human-Demon War took place ~10,000 years ago. An average Supard lives for 500~1000 years, so Ruijerd likely wasn't even born during that period.","Ruijerd has only been confirmed to serve during the 3rd Human-Demon War (aka Laplace's War). He was one of the most important figures during the war, his efforts shaping the current landscape of the world."],
         ["When he first started learning magic at the age of 2, Rudeus quickly blew past the intermediate stage for almost all schools of magic because of his innate understanding of physics and science.","The magic spells Rudeus used at the age of 3~4 were of this tier. Most of his other schools of magic remain at this tier way long pass his days adventuring in the Demon Continent.", "That's right. Rudeus reached Saint tier at the age of 5. For reference, the most esteemed professors of the best magic university in the world stuggle for most of their lives to reach this rank. It's also why almost no way except those that are close to Rudeus believes this accomplishment.", "Reaching King-ranked magic would engrave you solidly within the history books. It may take some more time before Rudeus can reach this level, but he definitely has the potential ! ", "Emperor-tier magic is found far and few within even the entire history of the world. Currently the number of people capable of even using such powerful magic are countable on a single hand."],
         ["All three of these sword styles were founded by their respective gods centuries ago. Currently, the Sword God Style is the most popular of the three.","Were you thinking of another series ?", "Neither the Dragon God nor the Demon God uses a weapon (they don't need one), and they definitely don't have a sword style under their name."],
-      ["The first prince was 32-years old when Rudeus entered Shirone, definitely couldn't be a brat like Pax !","The third prince is the chad Zanoba. Wayyy better than Pax.","The 4th prince had his head ripped apart by Zanoba shortly after he was born (by accident of course !). Too bad it wasn't Pax instead....","Right. Pax is nearly last in line for ascending the throne of the Shirone kingdom.... hopefully he never does !"],
+      ["The first prince was 32-years old when Rudeus entered Shirone, definitely couldn't be a brat like Pax !","The third prince is the chad Zanoba. Wayyy better than Pax.","The 4th prince had his head ripped apart by Zanoba shortly after he was born \n(by accident of course !). Too bad it wasn't Pax instead....","Right. Pax is nearly last in line for ascending the throne of the Shirone kingdom.... hopefully he never does !"],
       ["As one of the two sole surviving human nations emerging victorious from Laplace's War, Asura kingdom is rich in both economic and military might, making it the world's strongest superpower nation. Unfortunately, with no threats from the outside, the Asuran royalty and Asuran nobles have been infighting for the last few decades, leaving a good chance for other nations to overtake Asura.","As one of the two sole surviving human nations emerging victorious from Laplace's War , the Holy Milis Kingdom is strong in terms of holy magic and military might. Unfortunately, their isolation with the surrounding demonic kingdoms and distance from other human nations makes their economy fall short.","The Kingdom of the Dragon King is a fast growing nation, recently subjugating many nearby smaller nations. Though they still don't have nearly enough military might to take on great nations like Asura or Holy Milis, frailer nations such as Shirone fall within the threat of their blades.","In terms of magic prowess, the Three Magic Nation Alliance are definitely the pinacle of the world. Though, their efforts are mainly directed towards the progression of magical advancements within society, which leaves them little concern with political or military issues."],
       ["Monsters aren't a race, do you consider animals a race ? And 'Gods' are ranks or titles, they aren't a seperate group of races.","Both elves and dwarfs fall under the category of Beastfolk. This is because the proximity of beastfolk and demon races across hundreds of centuries have led to a variety of new sub-races, which include elves(mainly beastfolk), dwarfs(mainly beastfolk), ogres(mainly demon race), etc.","You got it right ! Both mermaids and angels exist in Mushoku Tensei's world, though it's not likely you'll see any characters from these two races anytime soon (they're VERY seclutive !)."],
       ["Maybe in another timeline......","Right ! Eris is from a branch of the Boreas family, she has 2 older brothers in the royal capital belonging to the main branch. They were sent there to avoid potential uprisings to the main family from a branch family like Eris's.\nGosh, it's pretty complicated.","Euros is one of the 4 noble Greyrat branches, but not Eris's branch.", "Zephyrus is one of the 4 noble Greyrat branches, but not Eris's branch.", "Well... that's true at some point.\nBut I'm sure you knew that, so it's not a spoiler. Right ?"],
@@ -167,8 +180,14 @@ async def on_message(message):
       ["Zenith became very adept at healing magic before her adventuring days, but she wasn't famous nor did she make a living from it. ","Zenith seems to be good with kids, she probably would have made a good school teacher.","She may give off that immpression sometimes, but that just isn't the truth.","That's right ! Zenith was the second daughter of a noble count family within the Holy Milis Kingdom. She learned healing magic because it was part of her education as a noble lady. She ran away from home at the age of fifteen after a fight with her parents, and became an adventurer soon after. Pretty similar to Paul, I would say."],
       ["Bofa DEEZ NUTZ ! HAH ! Got eem!","There aren't any known dragons in the Demon Continent. It's filled with other scary monsters though.","All Supard are born with a three-pointed tail. It grows with them until they reached a certain age, at which point it would stiffen up and fall off. Yet even when separated, it's somehow part of their body. The more they use it, the sharper and more deadly it would grow. With enough time and effort, these tridents could become peerless weapons, virtually unbreakable and capable of piercing through pretty much anything. Supards usually never cast aside their spears, not until the day they die.","A spear passed down through history would probably break easily though ? No ?"],
       ["Maybe in other series. But nothing can restore a life that's over in Mushoku Tensei. Even immortal beings would not be able to revive if they truly lost their lives.","That's right. Not even God-tier healing magic can bring back a lost life. But it CAN save those whose bodies are being destroyed. An example would be God-Tier magic may be used to completely stop the Magic Stone Disease, which is an uncurable disease that slowly turns the infected person's body to rock hard granite."],
-      ["That's right. They were a solid adventuring party consisting of Zenith the healer, Ghylaine the frontline, Paul the midguard, Elinalize the tank, Talhand the magician, and Geese the 'all-around handyman'","Paul's ego is big, but not that big... probably.","Paul created the 'Fittoa Search and Rescue' team after the Teleportation incident, its not the name of his party during his adventuring days.","Steppe Ladder is a famous S ranked party during Rudeus's adventuring days, not Paul's."],
-      ["She's close to the person called 'Mad Dog', but it's not her.","'Mad Sword King' is held by another familiar character in the series, but not Ghyslaine.","Correct ! Ghyslaine got this nickname after she helped a struggling nation within the Strife Zone during the Teleportation incident. With her efforts during a hopeless battle against 2 larger nations, she helped them earn a decisive victory.\n\nAt the time, she did not give her name, so the soldiers called her 'The Forest Goddess'. Her mystic figure was passed down through the nation's history and culture. \n\nEven hundreds of years later, 'The Forest Goddess' remains a prominent symbol of hope for that nation's people. Though, Ghyslaine herself will never know this.","She's actually also known as 'Black Wolf Sword King', but not 'Black Fang Sword King'."]
+      ["That's right. They were a solid adventuring party consisting of Zenith the healer, Ghylaine the frontline, Paul the midguard, Elinalize the tank, Talhand the magician, and Geese the 'all-around handyman'","Paul's ego is big, but not THAT big... probably.","Paul created the 'Fittoa Search and Rescue' team after the Teleportation incident, its not the name of his party during his adventuring days.","Steppe Ladder is a famous S ranked party during Rudeus's adventuring days, not Paul's."],
+      ["She's close to the person called 'Mad Dog', but it's not her.","'Mad Sword King' is held by another familiar character in the series, but not Ghyslaine.","Correct ! Ghyslaine got this nickname after she helped a struggling nation within the Strife Zone during the Teleportation incident. With her efforts during a hopeless battle against 2 larger nations, she helped them earn a decisive victory.\n\nAt the time, she did not give her name, so the soldiers called her 'The Forest Goddess'. Her mystic figure was passed down through the nation's history and culture. \n\nEven hundreds of years later, 'The Forest Goddess' remains a prominent symbol of hope for that nation's people. Though, Ghyslaine herself will never know this.","She's actually also known as 'Black Wolf Sword King', but not 'Black Fang Sword King'."],
+      ["Ars was the person who ENDED the war, not started it.","Although the Fighting God was around during this period of time, he didn't take part in the First Great Human Demon War, only the Second.","The First Great Human Demon War took place before the creation of Demon God Laplace. Try guessing another ancient being next time.","Correct ! Along with her Five Great Demon Kings, Kishirika Kishirisu rose as the Great Demon Empress, leading all demon races in a united battle against humanity, lasting a thousand years."],
+      ["A thousand years following her death, a revived Kishirika Kishirisu launches the Second Great Human-Demon War. This time, persuading both the Beast and Sea races to join the war on the Demon's side. Humanity was pushed to the brink of extinction after several centuries of fighting. Unfortunately for her, humanity persuaded Dragon God ||Laplace|| to join their side, leading to the Demon forces' crushing defeat.","Although Dragon God ||Laplace|| was part of the war, he only joined after being persuaded by humanity on during the brink of thier defeat. ","Althought Fighting God ||Alderaan(?)|| was part of the war, he only joined as a response||(you know if you know)|| to Dragon God ||Laplace||'s intervention.' ","The Technique God Laplace's existence resulted from the conclusion of the Second Great Human-Demon War. He was a byproduct, not a causation."],
+      ["Armoured Dragon King Perugius didn't start the war. But he is often credited as the most important person during the conflict. Along with his 6 companions and 12 familiars, he won the battle for humanity's greatest struggle, ending the bloodiest conflict in recent history.","Hah ! A third time ? Unlikely.","Following his revival, Demon God Laplace starts a new Great Human-Demon War. After successfully uniting all the demon races and convincing both the Sea and Beast races to join his side, he started the most brutal conflict the world has seen. After a century of fighting, most of humanity was destroyed, only the Asura and Holy Milis Kingdom remained. Nearing the end, heroes from all corners of the world, and the remaining humans gathered in the town of Roa in order to have a final stand against the demons. Against all odds, they triumphed."],
+      ["Incorrect Kalmon I did indeed join the war on the side of his good friend Perugius. But now it's obvious what the is answer for this question, right ?","Right, this was logically guessable since there can only be one North God at a time. Fun fact, Kalmon I and Kalmon III are both from the same lineage. The former being the grandfather of the latter.","Fire Emperor Feroze Star was one out of the 4 heroes of The Seven who fell in battle during the war. His sacrifice leading the way for victory in the end.", "Dragon God Urupen, the 99th Generation Dragon God, is often known as the weakest Dragon God in history. But his strength proved vital in Laplace's ultimate defeat.", "Gaunis Freean Asura took the throne following her father's and brothers deaths. She lived past the end of the war, and led Asura's grand restoration during peacetimes."],
+      ["Perugius was among those who defeated Laplace during the final battle. Unable to destroy his soul, Perugius opted to seal him away instead, ending the war.","It is said that only 3 among the Seven Heroes survived the war. North God Kalmon I, being one of them, is likely to have participated in the final fight against Laplace","During the final fight, at a critical moment, Ruijerd Superdia appeared and stabbed Laplace as revenge for Laplace's ploy against the Supards. Opening up the opportunity for Perugius and the remaining heroes to defeat Laplace once and for all.", "Fire Emperor Feroze Star is the only one among The Seven to have been confimed to perish during Laplace's War. Before his death, he named his unborn child in case he wouldn't make it back in time for his birth. As such, it became taboo to name your child before heading of on a journey in this world.\n\nIt isn't stated whether he died during or before the final fight, but he is the least likely to have participated out of the choices."],
+      ["Kenya fit Deez Nutz in your mouth ? HAH ! Got eem !","Neither Hilda nor Philip were executed. Likely due to them already being confirmed dead. Remnants of their bodies were discovered within the Strife Zone shortly after the Teleportation incident. RIP Hilda.","Neither Hilda nor Philip were executed. Likely due to them already being confirmed dead. Remnants of their bodies were discovered within the Strife Zone shortly after the Teleportation incident. RIP Philip.","The execution of Sauros Boreas Greyrat served multiple purposeses. First, it appeased the masses and redirected thier ire away from the Royal Family, instead pointing the blame on Sauros. Second, it protected the main Boreas family line from being extinguished. Sauros served as an ideal scapegoat for his son, the current head of the Boreas family, who was on the brink of losing power due to harsh political intrigue resulting from the Teleportation Incident."]
               
               ]
     
@@ -184,8 +203,10 @@ async def on_message(message):
     #send question as an embed
     if len(question+choices_message) >= 256:
       embedded = discord.Embed(title = f"{question}",description = f"{choices_message}")
+      
     else:
       embedded = discord.Embed(title = f"{question}\n{choices_message}")
+      
     bot_message = await message.channel.send(embed = embedded)
     for i in range (len(choice)):
         await bot_message.add_reaction(reactions[i])
@@ -203,11 +224,12 @@ async def on_message(message):
         
 
     try:
-      reaction, user = await client.wait_for('reaction_add', timeout=25.0, check=check)
+      reaction, user = await client.wait_for('reaction_add', timeout=55.0, check=check)
     
       #Stop round if time limit exceeded
     except asyncio.TimeoutError:
-      await message.channel.send('Timeout, try to react faster next time')
+      await message.channel.send('Timeout, try to react faster next time')   
+      turn_off_round()     
 
     #carry on if reaction given
     else:   
@@ -319,7 +341,11 @@ def rank_check(user_points):
     rank = 'None'
 
   return rank
-
+  
+def turn_off_round():
+      global round_ongoing
+      round_ongoing = False 
+  
 def rank_write(message, rank):
   with open("users.json","r") as file:
     users = json.load(file)
