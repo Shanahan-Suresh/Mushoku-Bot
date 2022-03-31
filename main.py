@@ -12,6 +12,7 @@ token = os.environ['TOKEN']
 client = discord.Client()
 
 round_ongoing = False
+round_ongoing2 = False
 
 #bot startup
 @client.event
@@ -38,7 +39,7 @@ async def on_message(message):
     user = message.author
     user_id = str(user.id)
     
-    if msg == "MT Points":
+    if msg.lower() == "mt points":
 
       #print user's current points
       #Idea- rankup only during points check maybe (play fanfare)
@@ -76,6 +77,38 @@ async def on_message(message):
 
 		
 
+  #trivia game mode
+  async def trivia_mode2():
+    bot_message = ''
+
+    #question bank
+    questions = ["What is the name of Rudeus's Master ?"]
+    
+    #choices correspond to questions.keys()
+    answers = [['Roxy','Roxy Migurdia']]
+    
+    random_number = random.randint(0, len(questions)-1)
+    question = questions[random_number]
+    answer = answers[random_number]
+    
+    #send question as an embed
+    embedded = discord.Embed(title = f"{question}")
+    bot_message = await message.channel.send(embed = embedded)
+    
+    
+    #Check and return reaction user and all available reactions
+    def answer_check(answer):
+      @client.event
+      async def on_message(message):
+        
+        if str(message.content) in answer:
+          await message.channel.send('Correct')
+          return
+
+    answer_check(answer)
+    print('I ran')
+    return
+        
   #trivia game mode
   async def trivia_mode():
     bot_message = ''
@@ -289,16 +322,31 @@ async def on_message(message):
         
 
 
-  if message.content.startswith("MT Trivia"):
+  if message.content.startswith("klu"):
+    chance = 1
+    random_number = random.randint(0, 7)
+    if random_number == chance:
+      await message.channel.send('klu deez nuts bro', delete_after=0.1)
+      return
+      
+  if msg.lower() == ("mt trivia"):
     global round_ongoing
     if round_ongoing == False:
       round_ongoing = True      
       await trivia_mode()
     else:
       await message.channel.send('There is a trivia round ongoing ! Finish it first !')
+
+  if message.content.startswith("MT Guess"):
+    global round_ongoing2
+    if round_ongoing2 == False:
+      round_ongoing2 = True      
+      #await trivia_mode2()
+    else:
+      await message.channel.send('There is a trivia2 round ongoing ! Finish it first !')
       
 
-  if message.content.startswith("MT Help"):
+  if message.content.lower().startswith("mt help"):
     channel = message.channel
     await display_embed(channel)
 
@@ -306,7 +354,7 @@ async def on_message(message):
 async def display_embed(channel):
 	embed = discord.Embed(
 		title = 'Available Commands',
-		description = 'Ver 0.1 - Trivia mode and point system ',
+		description = 'Changelog\n--------------\nVer 0.11 - Adds 6 trivia questions and an easter egg\nVer 0.1 - Trivia mode and point system',
 		colour = discord.Colour.orange()
 	)
 
