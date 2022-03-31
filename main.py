@@ -12,7 +12,7 @@ token = os.environ['TOKEN']
 client = discord.Client()
 
 round_ongoing = False
-round_ongoing2 = False
+guess_round_ongoing = False
 
 #bot startup
 @client.event
@@ -78,7 +78,7 @@ async def on_message(message):
 		
 
   #trivia game mode
-  async def trivia_mode2():
+  async def guess_mode():
     bot_message = ''
 
     #question bank
@@ -96,18 +96,29 @@ async def on_message(message):
     bot_message = await message.channel.send(embed = embedded)
     
     
-    #Check and return reaction user and all available reactions
-    def answer_check(answer):
-      @client.event
-      async def on_message(message):
+    #Check user answer
+    async def answer_check(answer):
+      try:          
+            #Add clock here
+            while True:
+              guess = await client.wait_for('message', timeout=5)
+              guess = str(guess.content)
         
-        if str(message.content) in answer:
-          await message.channel.send('Correct')
-          return
+              if guess in answer:
+                await message.channel.send('Correct')
+                turn_off_round2() 
+                break
+          
+              else:
+                continue 
+    
+      #stop round if time limit exceeded
+      except asyncio.TimeoutError:
+        await message.channel.send('Timeout, try to answer quicker next time')
+        turn_off_round2()  
+      
 
-    answer_check(answer)
-    print('I ran')
-    return
+    await answer_check(answer)
         
   #trivia game mode
   async def trivia_mode():
@@ -337,13 +348,13 @@ async def on_message(message):
     else:
       await message.channel.send('There is a trivia round ongoing ! Finish it first !')
 
-  if message.content.startswith("MT Guess"):
-    global round_ongoing2
-    if round_ongoing2 == False:
-      round_ongoing2 = True      
-      #await trivia_mode2()
+  if message.content.lower().startswith("mt guess"):
+    global guess_round_ongoing
+    if guess_round_ongoing == False:
+      guess_round_ongoing = True      
+      await guess_mode()
     else:
-      await message.channel.send('There is a trivia2 round ongoing ! Finish it first !')
+      await message.channel.send('There is a guess round ongoing ! Finish it first !')
       
 
   if message.content.lower().startswith("mt help"):
@@ -393,6 +404,10 @@ def rank_check(user_points):
 def turn_off_round():
       global round_ongoing
       round_ongoing = False 
+
+def turn_off_round2():
+      global guess_round_ongoing
+      guess_round_ongoing = False 
   
 def rank_write(message, rank):
   with open("users.json","r") as file:
