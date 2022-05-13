@@ -1,5 +1,7 @@
 import discord
 import os
+import ffmpeg
+import nacl
 import requests
 import json
 import asyncio
@@ -356,14 +358,30 @@ async def on_message(message):
           return
         
 
-
+  #Easter egg
   if message.content.startswith("klu"):
     chance = 1
-    random_number = random.randint(0, 8)
+    random_number = random.randint(0, 10)
     if random_number == chance:
       await message.channel.send('klu deez nuts bro', delete_after=0.1)
-      return
       
+    if random_number == (chance+1):
+      await message.channel.send('klu deez nutzzz 🥜🥜', delete_after=0.1)
+
+  #Voice channel command (move out of replit)
+  if msg.lower() == ("mt ost"):
+    try:
+      connect_voice = user.voice
+      vc = await connect_voice.channel.connect()
+      vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3'))
+      connect_voice.play(discord.FFmpegPCMAudio('Tabibito no Uta.mp3'))
+
+    #Exception for no voice channel id
+    except(AttributeError):
+      await message.channel.send('Hmm ? Are you in a voice channel now ?')
+
+
+  #Trivia quiz command
   if msg.lower() == ("mt trivia"):
     global round_ongoing
     if round_ongoing == False:
@@ -405,15 +423,16 @@ async def display_embed(channel):
 	await channel.send(file = file, embed=embed)
 
 #Function to determine user rank based on points
+#Idea - add custom messages for each rank up
 def rank_check(user_points):
   if user_points >= 10000:
-    rank = 'God-level Mushoku Ultra Fan'
+    rank = '***God-level Mushoku Ultra Fan***'
   elif user_points >= 4500:
-    rank = 'Emperor-Tier Mushoku Fan'
+    rank = '***Emperor***-Tier Mushoku Fan'
   elif user_points >= 2000:
-    rank = 'King-Tier Mushoku Fan'
+    rank = '**King-Tier** Mushoku Fan'
   elif user_points >= 1400:
-    rank = 'Saint-Ranked Mushoku Fan'
+    rank = '**Saint**-Ranked Mushoku Fan'
   elif user_points >= 800:
     rank = 'Advanced Mushoku Fan'
   elif user_points >= 400:
