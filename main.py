@@ -1,16 +1,14 @@
 import discord
-import os
 import ffmpeg
 import nacl
 import requests
 import json
 import asyncio
 import random
-from keep_alive import keep_alive
 
 #token and verification
-keep_alive()
-token = os.environ['TOKEN']
+#keep_alive()
+token = 'OTU2NTQ4MDExMTM0MTg5NjA4.Yjx0wQ.NedmVhDs_CEsGS2ZDZkNW01bMSo'
 client = discord.Client()
 
 round_ongoing = False
@@ -143,22 +141,22 @@ async def on_message(message):
       'Ruijerd Superdia had lived through and served in all 4 Human-Demon Wars throughout time. ': 'B',
       'Rudeus could use ___-ranked water magic at the age of 5.': 'C',
       'The three famous Sword Styles are : ': 'A',
-    'Pax Shirone is the ___ prince of Shirone.': 'D',
-    'The strongest nation in the world is the...': 'A',
-    'There are 7 main races in the world of Mushoku Tensei.\nThey are the "Human Race", "Demon Race", "Dragon Race", "Void Race" and what other 3 races ?' : 'C',
-    "What's Eris's middle name ? (Eris ___ Greyrat)": ['B','E'],
-    "Dragon God Orsted is currently the strongest living being in the world." : 'A',
-    "Currently, the strongest human in the world is..." : 'B',
-    "Rudeus has two little sisters, named:" : 'B',
-    "The Green ore coin is the highest valued coin on the Demon Continent.\nHow many Asuran Gold Coins is one of them worth ?" : 'D',
-    "Armored Dragon King, Perugius Dola is famous for...." : 'C',
-    "The most dangerous continent in the world is said to be the..." : "D",
-    "Why is the Teleportation Labyrinth regarded as the most dangerous dungeon in the world ?" : "A",
-    "The 'Strife Zone' is..." : "C",
-    "Before Zenith became an adventurer in Paul's party, she was...?" : "D",
-    "The spears wielded by Supard warriors come from...?" : "C",
-    "God-tier healing magic is capable of reviving even the dead." : "B",
-    "Paul's adventuring party was known as '____', and they were a(n) _ tier adventuring party" : "A",
+      'Pax Shirone is the ___ prince of Shirone.': 'D',
+      'The strongest nation in the world is the...': 'A',
+      'There are 7 main races in the world of Mushoku Tensei.\nThey are the "Human Race", "Demon Race", "Dragon Race", "Void Race" and what other 3 races ?' : 'C',
+      "What's Eris's middle name ? (Eris ___ Greyrat)": ['B','E'],
+      "Dragon God Orsted is currently the strongest living being in the world." : 'A',
+      "Currently, the strongest human in the world is..." : 'B',
+      "Rudeus has two little sisters, named:" : 'B',
+      "The Green ore coin is the highest valued coin on the Demon Continent.\nHow many Asuran Gold Coins is one of them worth ?" : 'D',
+      "Armored Dragon King, Perugius Dola is famous for...." : 'C',
+      "The most dangerous continent in the world is said to be the..." : "D",
+      "Why is the Teleportation Labyrinth regarded as the most dangerous dungeon in the world ?" : "A",
+      "The 'Strife Zone' is..." : "C",
+      "Before Zenith became an adventurer in Paul's party, she was...?" : "D",
+      "The spears wielded by Supard warriors come from...?" : "C",
+      "God-tier healing magic is capable of reviving even the dead." : "B",
+      "Paul's adventuring party was known as '____', and they were a(n) _ tier adventuring party" : "A",
       "Ghislaine Dedoldia is also called ___ by some people." : "C",
       "Who started the First Great Human-Demon War ? " : "D",
       "Who started the Second Great Human-Demon War ? " : "A",
@@ -171,7 +169,10 @@ async def on_message(message):
       "Among these, which are viable ways to cross FROM the Demon Continent TO the Central Continent ?" : ['A','C','D'],
       "What is the official name for the world Rudeus was reincarnated into ?" : ['C','D'],
       "Geese(Gisu) Nukadia  belongs to the ___ race " : ['A','D'],
-      "Between the following, Silent Seven Stars is most famous for :" : "A"
+      "Between the following, Silent Seven Stars is most famous for :" : "A",
+      "Perugius's strongest power is his ____" : "B",
+      "Zanoba is a miko (blessed child). What is his gift ?" : "C",
+      "Why is a/the Sacred Beast born ?" : "C"
     }
 
     #choices correspond to questions.keys()
@@ -213,7 +214,10 @@ async def on_message(message):
       ["A. Enter the Heaven Continent, and from there descend towards the northen area of the Central Continent\n","B. Cross the wide ocean after leaving Wind port, reaching the Asuran capital within 3~6 months.\n","C. Make use of ancient Teleportation Formations scattered throughout the Demon Continent, reaching the Central Continent in around 10~15 minutes.\n","D. Leave the Demon Continent via Wind port, and from there, enter Milis Continent. Then, travel  across the entirety of Milis continent to West port, finally reaching East Port after another voyage."],
       ["A. Earth","B. Mushoku Tensei","C. The Six-Faced World","D. The Human World (人の世界)", "E. (Unamed)"],
       ["A. Monkey","B. Human","C. Beast","D. Demon", "E. Sky"],
-      ["A. Inventing unique culinary delights and recipes","B. Causing the Teleportation Incident","C. Being Orsted's lover"]
+      ["A. Inventing unique culinary delights and recipes","B. Causing the Teleportation Incident","C. Being Orsted's lover"],
+      ["A. Dragon Touki","B. Summoning Magic","C. Dragon Gate", "D. Sealing Magic"],
+      ["A. Blessing of Youth","B. Earth Magic","C. Great Strength", "D. Unparelled Insight"],
+      ["A. To protect the Beast folk from all harm","B. To destroy the Demon God Laplace","C. To join the chosen one's side, aiding them in saving the world.", "D. So that people from all over the land may satisfy their cuddle tendencies"]
       
       
               ]
@@ -256,8 +260,11 @@ async def on_message(message):
       ["Orsted isn't the first Dragon God, but he did meet him briefly during his childhood. Orsted's fate is tied strongly to what the first Dragon God entrusted him with.","Orsted became the 100th-generation Dragon God as soon as he appeared within the world. It isn't stated what happened to Dragon God Urupen, the 99th Dragon God, but it is likely that he may have perished during Laplace's War.","Orsted is said to be the strongest of all the Dragon race. His abilities include : pure physical combat strength and Touki rivaling the Fighting God, capacity to use all magic spells that exist within the world (including his own unique magics), near all-knowing knowledge on world affairs, and his ultimate ability of (HEAVY SPOILER!!!)||looping back 100 years in time|| if he ever fails his mission. These abilities solidify his position as the most powerful being to appear in the Mushoku Tensei series","Although Orsted is plague with a number of debilitaitng 'curses', such as being unable to regenerate mana or being hated and feared by everyone in the world.\nHis power still far exceeds every Dragon God that came before him."],
       ["This will work ONLY if you can fly up the deadly high peaks surrounding the Heaven Continent, and find a method to descend from there safely back to the Central Continent. Thus, although viable for select people, this path isn't open to most.","This method is unfortunately NOT POSSIBLE within this world, as the Sea Race has banned cross-ocean voyages worldwide. Prepare to be sunk if you somehow had the technology to build an ocean-crossing voyager.","How did you know about those ??? Orsted said to keep them a secret !\nDon't spread the info !","Right, this is usually the typical path for almost everyone leaving the Demon Continent. The arduous and harsh journey can take anywhere from 1 to 6 years, with no guarantee of success. Many who set off on such grand undertakings, never live to see the Central Continents soil."],
       ["It's not planet Earth, Rudeus was reincarnated into a dimension completely seperated from Earth.","That's the name of the series silly. 'Mushoku Tensei' translates to 'Jobless Reincarnation' and the full title references how Rudeus will give his all in his new life.","That's right. The official name of the world is called the 'Six-Faced World'.\nThis is becuase in the past, the entire world was shaped like a die, with 6 faces representing 6 different worlds, each occupied by their own race and God.\nThese inlcude the 'Dragon World', 'Human World', 'Demon World', 'Sea World', 'Sky World' and 'Beast World'.There also existed the 'Void World', which was located in between all 6 other worlds.\n\n However, around 10,000 years ago, the First Dragon God and his 5 Dragon Emperors waged war against all other worlds, destroying them one by one and murdering each of their respective gods. But before he could destroy the last remaining 'Human World', he was betrayed by his surbordinates. Their fight was so catasrophic that it destroyed the 'Dragon World' itself. With all worlds wiped out, the remaining inhabitants of each world fled into the 'Human World', causing the various races to live side by side with one another since then.","Although 'technically' correct, there is also a more accurate name. Nonetheless, Rudeus is currently in the 'Human World', the last of all the worlds.", "If you were to ask, a majority of the inhabitants wouldn't know the name of the world either, only those who have read historical books passed down through time would have ever heard it.\n\n With exception of those who lived during the time when more then one world existed."],
-      ["HAHAHA ! That's not correct at all !\nBut I like it, so here's some points.","Nope, although he *somewhats* resembles a human, he's not one.","Good guess, but not quite. Thought, I *can* definitely see his resemblance to a monkey.","Right ! Geese was born in the Demon Continent, and he's actually the last survivor of the Nuka Tribe. Hopefully, his backstory will be revealed more as the story progresses.", "Members of the Sky Race have wings my dude. Did you see Geese sprouting one of those and flying around during the Beast village portion of the story ??"],
-      ["Right, Silent Seven Stars is famous for spreading a number of delicious culinary delights in the various kingdoms she has visited. These inlcude fried chicken and steamed rice, among others. Of course, she has made various achivements in advancing the study of magic as well, allowing her to become an honourary S-class member of Ranoa's Magic Guild.","Although Silent Seven Stars was certainly an ||integral component for the Teleportation Incident to occur||, she did not cause it. ||She is just as much a victim as those who were caught up in the blast and were teleportated away from Roa.||","W-what !? Where did you get THAT idea from ???"]
+      ["HAHAHA ! That's not correct at all !\nBut I like it, so here's some points.","Nope, although he *somewhats* resembles a human, he's not one.","Good guess, but not quite. Though, I *can* definitely see his resemblance to a monkey.","Right ! Geese was born in the Demon Continent, and he's actually the last survivor of the Nuka Tribe. Hopefully, his backstory will be revealed more as the story progresses.", "Members of the Sky Race have wings my dude. Did you see Geese sprouting one of those and flying around during the Beast village portion of the story ??"],
+      ["Right, Silent Seven Stars is famous for spreading a number of delicious culinary delights in the various kingdoms she has visited. These inlcude fried chicken and steamed rice, among others. Of course, she has made various achivements in advancing the study of magic as well, allowing her to become an honourary S-class member of Ranoa's Magic Guild.","Although Silent Seven Stars was certainly an ||integral component for the Teleportation Incident to occur||, she did not cause it. ||She is just as much a victim as those who were caught up in the blast and were teleportated away from Roa.||","W-what !? Where did you get THAT idea from ???"],
+      ["Being part of the Dragon race, Perugius has flesh tough enough to withstand most attacks up till the Saint rank. But he isn't particularly gifted in Touki, nor is he well known for it.","Throughout the world, Perugius is most well known for his incredibly powerful Summoning Magic. \nPerugius successfully managed to create 12 exceptional familiars, each with different elemental affinities, unique abilities (moving at the speed of light, controlling time, transferring vitalities, etc), all with their own complex personalities. \nHe is without a doubt the greatest Summoning Magic user in the history of the world, cementing his place as a living legend.  ","Perugius is capaable of using a number of powerful Dragon Gates, a rare magic possessed only by those of the Dragon race. But it isn't his greatest ability.", "'Sealing Magic' is a rare skill in of itself. Although impressive enough to seal the Demon God Laplace for hundreds of years, Perugius is well known for other greater abilities."],
+      ["Zanoba was already closing 30 when he first met Rudeus. Maybe his youthful energy managed to convince you otherwise. ","Unfortunately, despite his fond love of figurines. Zanoba possesses neither the magical fortitude nor the mana quantity to ever successfully create his own figurine from Earth Magic like his master. Though he will find other methods, in due time.","Zanoba is gifted with great strength beyond the capability of any regular human. When he was a young boy, Zanoba was already capable of ripping apart his infant brother limb from limb (a tragic accident). His 'gift' makes him feared throughout the Shirone Royal Palace and has caused the kingdom a great deal of pain over the years, leading many to label him a 'cursed child' instead of a blessed one. Yet, his father the king defends and protect him in hopes of a brighter future. \n\nMay he one day redeem himself.  ", "Truly, Zanoba has his moments of wisdom. But that comes purely from his own history, experience and outlook on life. Not borne from his blessing."],
+      ["Quite the opposite. The Beast folk worship the Sacred Beast as a divine entity, it is THEIR duty to protect it from all harm.","The Sacred Beast has a purpose far greater than that of Laplace's revival. Though it may play a role in thwarting that as well.","A Sacred Beast is only born for one reason. To help a chosen saviour in his/her journey to protect the world from certain calamity. As the Sacred Beast was born only a few years ago, it will take a few decades before the chosen one emerges. Hopefully, nothing prevents their birth.", "Yes, this is a great reason for its existence ! However despite its importance. it isn't the true role the Sacred Beast holds."]
               
               ]
     
@@ -368,13 +375,12 @@ async def on_message(message):
     if random_number == (chance+1):
       await message.channel.send('klu deez nutzzz 🥜🥜', delete_after=0.1)
 
-  #Voice channel command (move out of replit)
+  #Voice channel command
   if msg.lower() == ("mt ost"):
     try:
       connect_voice = user.voice
       vc = await connect_voice.channel.connect()
-      vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3'))
-      connect_voice.play(discord.FFmpegPCMAudio('Tabibito no Uta.mp3'))
+      vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
 
     #Exception for no voice channel id
     except(AttributeError):
