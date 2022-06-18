@@ -77,17 +77,16 @@ async def on_message(message):
           await message.channel.send('All points cleared')
 
     #clear all points
-    if msg == "MT Points 800":
+    if msg == "MT Points 2500":
       with open("users.json","w") as file:
-          users[user_id]["Points"] = 800
+          users[user_id]["Points"] = 2500
           json.dump(users, file, sort_keys=True, indent=4, ensure_ascii=False)
-          await message.channel.send('MT Points set to 500')
+          await message.channel.send('MT Points set to 2500')
 
 		
 
-  #trivia game mode
+  #guess game mode
   async def guess_mode():
-    bot_message = ''
 
     #question bank
     questions = ["What is the name of Rudeus's Master ?"]
@@ -158,8 +157,6 @@ async def on_message(message):
     for i in range (len(choice)):
         await bot_message.add_reaction(reactions[i])
 
-
-    #answered = False
       
     #Check and return reaction user and all available reactions
     def check(reaction, user):
@@ -173,7 +170,7 @@ async def on_message(message):
     try:
       reaction, user = await client.wait_for('reaction_add', timeout=55.0, check=check)
     
-      #Stop round if time limit exceeded
+    #Stop round if time limit exceeded
     except asyncio.TimeoutError:
       await message.channel.send('Timeout, try to react faster next time')   
       turn_off_round()     
@@ -245,17 +242,42 @@ async def on_message(message):
     if random_number == (chance+1):
       await message.channel.send('klu deez nutzzz 🥜🥜', delete_after=0.1)
 
+  #Function to join voice channel and play music
+  async def play_ost():
+      try:
+        connect_voice = user.voice
+        vc = await connect_voice.channel.connect()
+        vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
+
+        #Listen for stop command
+        async def stop_ost():
+          try:          
+                while True:
+                  stop_command = await client.wait_for('message', timeout=300)
+                  stop_command = str(stop_command.content)
+
+                  if stop_command.lower() == ('mt ost stop'):
+                    await vc.disconnect()
+                    await message.channel.send('Stopped the music.')
+                    break
+              
+                  else:
+                    continue 
+        
+          #Leave voice channel when time limit exceeded
+          except asyncio.TimeoutError:
+            await message.channel.send('Leaving voice channel...')
+      
+
+        await stop_ost()
+
+      #Exception for no voice channel id
+      except(AttributeError):
+        await message.channel.send('Hmm ? Are you in a voice channel now ?')          
+
   #Voice channel command
   if msg.lower() == ("mt ost"):
-    try:
-      connect_voice = user.voice
-      vc = await connect_voice.channel.connect()
-      vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
-
-    #Exception for no voice channel id
-    except(AttributeError):
-      await message.channel.send('Hmm ? Are you in a voice channel now ?')
-
+    await play_ost()
 
   #Trivia quiz command
   if msg.lower() == ("mt trivia"):
@@ -266,6 +288,7 @@ async def on_message(message):
     else:
       await message.channel.send('There is a trivia round ongoing ! Finish it first !')
 
+  #Guess round command
   if message.content.lower().startswith("mt guess"):
     global guess_round_ongoing
     if guess_round_ongoing == False:
@@ -274,29 +297,30 @@ async def on_message(message):
     else:
       await message.channel.send('There is a guess round ongoing ! Finish it first !')
       
-
+  #Help message command
   if message.content.lower().startswith("mt help"):
     channel = message.channel
     await display_embed(channel)
 
-#Function to display help menu (written in notepad, indents may cause issues)
+#Function to display help menu
 async def display_embed(channel):
-	embed = discord.Embed(
-		title = 'Available Commands',
-		description = 'Changelog\n--------------\nVer 0.11 - Adds 6 trivia questions and an easter egg\nVer 0.1 - Trivia mode and point system',
-		colour = discord.Colour.orange()
-	)
+    embed = discord.Embed(
+        title = 'Available Commands', description = 'Changelog\n--------------\nVer 0.12 - 40 total trivia questions, new guess game mode (beta)\nVer 0.11 - Adds 6 trivia questions and an easter egg\nVer 0.1 - Trivia mode and point system',
+        colour = discord.Colour.orange()
+    )
 
-	embed.set_footer(text='In development v0.1')
-	embed.set_image(url='https://media.discordapp.net/attachments/905934829659496458/920654143721467944/Mushoku_Tensei_Isekai_Ittara_Honki_Dasu_Logo_Japones.png')
-	file = discord.File("thumbnail2.png")
-	embed.set_thumbnail(url="attachment://thumbnail2.png")
-	embed.set_author(name = 'MushokuBot Help', icon_url='https://cdn.discordapp.com/attachments/905934829659496458/920656680830791740/286158_-_Copy.jpg')
-	embed.add_field(name=':scroll: MT Trivia', value = 'Start a round of Mushoku Tensei trivia !', inline = True)
-	embed.add_field(name=':diamond_shape_with_a_dot_inside: MT Points', value = 'View your current MT points', inline = True)
-	embed.add_field(name=':grey_question: MT Help', value = 'View all available commands', inline = False)
-	
-	await channel.send(file = file, embed=embed)
+    embed.set_footer(text='In development v0.12')
+    embed.set_image(url='https://media.discordapp.net/attachments/905934829659496458/920654143721467944/Mushoku_Tensei_Isekai_Ittara_Honki_Dasu_Logo_Japones.png')
+    file = discord.File("thumbnail2.png")
+    embed.set_thumbnail(url="attachment://thumbnail2.png")
+    embed.set_author(name = 'MushokuBot Help', icon_url='https://cdn.discordapp.com/attachments/905934829659496458/920656680830791740/286158_-_Copy.jpg')
+    embed.add_field(name=':scroll: MT Trivia', value = 'Start a round of Mushoku Tensei trivia !', inline = True)
+    embed.add_field(name=':diamond_shape_with_a_dot_inside: MT Points', value = 'View your current MT points', inline = True)
+    embed.add_field(name=':thought_balloon: MT Guess', value = 'Type the correct answer to win', inline = True)
+    embed.add_field(name=':musical_note: MT OST', value = 'Play Mushoku Tensei Soundtracks', inline = True)
+    embed.add_field(name=':grey_question: MT Help', value = 'View all available commands', inline = True)
+
+    await channel.send(file = file, embed=embed)
 
 #Function to determine user rank based on points
 #Idea - add custom messages for each rank up
@@ -327,7 +351,8 @@ def turn_off_round():
 def turn_off_round2():
       global guess_round_ongoing
       guess_round_ongoing = False 
-  
+
+#Writes user rank to file
 def rank_write(message, rank):
   with open("users.json","r") as file:
     users = json.load(file)
@@ -341,6 +366,7 @@ def rank_write(message, rank):
 
   if rank != old_rank:
     return True
+
 #Fuction to check if given response is the right answer
 def check_answer(correct_answer, response):
   if response == correct_answer:
