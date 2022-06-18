@@ -40,7 +40,11 @@ choices = [
         ["A. Inventing unique culinary delights and recipes","B. Causing the Teleportation Incident","C. Being Orsted's lover"],
         ["A. Dragon Touki","B. Summoning Magic","C. Dragon Gate", "D. Sealing Magic"],
         ["A. Blessing of Youth","B. Earth Magic","C. Great Strength", "D. Unparelled Insight"],
-        ["A. To protect the Beast folk from all harm","B. To destroy the Demon God Laplace","C. To join the chosen one's side, aiding them in saving the world.", "D. So that people from all over the land may satisfy their cuddle tendencies"]
+        ["A. To protect the Beast folk from all harm","B. To destroy the Demon God Laplace","C. To join the chosen one's side, aiding them in saving the world.", "D. So that people from all over the land may satisfy their cuddle tendencies"],
+        ["A. The Cathedral Knights","B. The Missionary Knights","C. The Temple Knights"],
+        ["A. Eyes of Destruction","B. Eyes of Magical Power","C. Eyes of Identification", "D. Eyes of Distant Sight"],
+        ["A. Eyes of X-ray Vision","B. Eyes of Foresight","C. Eyes of Absorption", "D. Eyes of Mana Disruption"],
+        ["A. Eyes of Distant Sight","B. Eyes of Foresight","C. Eyes of Magical Power", "D. Eyes of X-ray Vision"],
       
       
               ]

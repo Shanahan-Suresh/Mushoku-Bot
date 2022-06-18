@@ -40,5 +40,9 @@ questions = {
       "Between the following, Silent Seven Stars is most famous for :" : "A",
       "Perugius's strongest power is his ____" : "B",
       "Zanoba is a miko (blessed child). What is his gift ?" : "C",
-      "Why is a/the Sacred Beast born ?" : "C"
+      "Why is a/the Sacred Beast born ?" : "C",
+      "Of the three Holy Millision military knight orders, which order is put in charge of stamping out heresy ?" : "C",
+      "Kishirika Kishirisu possesses 12 Demon Eyes, which she may grant to anyone she chooses. Which of the following isn't one of them ?" : "A",
+      "Kishirika Kishirisu possesses 12 Demon Eyes, which she may grant to anyone she chooses. Which of the following isn't one of them ?" : "D",
+      "Kishirika Kishirisu offered Rudeus one of her 12 Demon Eyes. Which of the following did Rudeus choose" : "B"
     }

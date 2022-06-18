@@ -247,7 +247,7 @@ async def on_message(message):
       try:
         connect_voice = user.voice
         vc = await connect_voice.channel.connect()
-        vc.play(discord.FFmpegPCMAudio(source='Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
+        vc.play(discord.FFmpegPCMAudio(source='Songs/Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
 
         #Listen for stop command
         async def stop_ost():
@@ -344,10 +344,12 @@ def rank_check(user_points):
 
   return rank
   
+#Turn off trivia round flag
 def turn_off_round():
       global round_ongoing
       round_ongoing = False 
 
+#Turn off guess round flag
 def turn_off_round2():
       global guess_round_ongoing
       guess_round_ongoing = False 
@@ -367,7 +369,7 @@ def rank_write(message, rank):
   if rank != old_rank:
     return True
 
-#Fuction to check if given response is the right answer
+#Function to check if given response is the right answer
 def check_answer(correct_answer, response):
   if response == correct_answer:
     return True
