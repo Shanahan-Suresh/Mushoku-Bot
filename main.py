@@ -7,11 +7,12 @@ import asyncio
 import random
 import os
 from dotenv import load_dotenv
+from discord import ClientException
 
 from questions_bank import questions
 from choices_bank import choices
 from responses_bank import responses
-
+from tracks import track_list, track_select
 
 #token and verification
 #keep_alive()
@@ -100,7 +101,7 @@ async def on_message(message):
     
     #send question as an embed
     embedded = discord.Embed(title = f"{question}")
-    bot_message = await message.channel.send(embed = embedded)
+    await message.channel.send(embed = embedded)
     
     
     #Check user answer
@@ -242,12 +243,23 @@ async def on_message(message):
     if random_number == (chance+1):
       await message.channel.send('klu deez nutzzz 🥜🥜', delete_after=0.1)
 
+  async def play_next():
+    await message.channel.send('Song completed')
+    '''
+    soung_queue.append(source)
+    if not vc.is_playing():
+      if len(song_queue) >= 1:
+        del song_queue[0]
+        connect_voice = user.voice
+        vc = await connect_voice.channel.connect()
+        vc.play(discord.FFmpegPCMAudio(source=source, after=lambda e: play_next()))'''
+        
   #Function to join voice channel and play music
-  async def play_ost():
+  async def play_ost(ost_name):
       try:
         connect_voice = user.voice
         vc = await connect_voice.channel.connect()
-        vc.play(discord.FFmpegPCMAudio(source='Songs/Tabibito no Uta.mp3',executable='./ffmpeg.exe'))
+        vc.play(discord.FFmpegPCMAudio(source=('Songs/'+ost_name), executable='./ffmpeg.exe'), after = play_next())
 
         #Listen for stop command
         async def stop_ost():
@@ -266,6 +278,7 @@ async def on_message(message):
         
           #Leave voice channel when time limit exceeded
           except asyncio.TimeoutError:
+            await vc.disconnect()
             await message.channel.send('Leaving voice channel...')
       
 
@@ -273,11 +286,92 @@ async def on_message(message):
 
       #Exception for no voice channel id
       except(AttributeError):
-        await message.channel.send('Hmm ? Are you in a voice channel now ?')          
+        await message.channel.send('Hmm ? Wait, are you in a voice channel right now ?')
 
-  #Voice channel command
+      #Exception for no voice channel id
+      except(ClientException):
+        await message.channel.send("Already playing a song, use 'MT OST Stop' to stop the current session first." )             
+
+  #Display the list of available OSTs
+  async def song_list():
+      track_list_message = ''
+      reactions = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+
+      for index, song in enumerate(track_list):
+        track_list_message += '{}. {}\n'.format(index+1, song) 
+
+      
+
+      #send question as an embed
+      embedded = discord.Embed(title = f"Song List", description = track_list_message)
+        
+        
+      bot_message = await message.channel.send(embed = embedded)
+      for i in range (len(reactions)):
+          await bot_message.add_reaction(reactions[i])
+
+        
+      #Check and return reaction user and all available reactions
+      def check(reaction, user):
+          reacts = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+          if user == client.user:
+            return
+          else:
+            return user == message.author and str(reaction.emoji) in reacts
+          
+
+      try:
+        reaction, user = await client.wait_for('reaction_add', timeout=55.0, check=check)
+      
+      #Stop round if time limit exceeded
+      except asyncio.TimeoutError:
+        await message.channel.send("Timeout, let me know when you've decided on a song")       
+
+      #carry on if reaction given
+      else:   
+
+            async def song_chosen_message(song_choice):
+              await message.channel.send("Chosen **{}**".format(track_list[song_choice]))
+        
+            if reaction.emoji == "1️⃣":
+                song_choice = 0
+                await song_chosen_message(song_choice)
+                await play_ost(track_select[song_choice])
+              
+            elif reaction.emoji == "2️⃣":
+                song_choice = 1
+                await song_chosen_message(song_choice)
+                await play_ost(track_select[song_choice])
+              
+            elif reaction.emoji == "3️⃣":
+                song_choice = 2
+                await song_chosen_message(song_choice)
+                await play_ost(track_select[song_choice])
+
+            elif reaction.emoji == "4️⃣":
+                song_choice = 3
+                await song_chosen_message(song_choice)
+                await play_ost(track_select[song_choice])
+
+            elif reaction.emoji == "5️⃣":
+                song_choice = 4
+                await song_chosen_message(song_choice)
+                await play_ost(track_select[song_choice])
+          
+            else:
+                await message.channel.send("Sorry, I can't play a song I don't know")
+
+            return
+
+  #Song select command
   if msg.lower() == ("mt ost"):
-    await play_ost()
+    await song_list()
+
+  #Random song command
+  if msg.lower() == ("mt ost random"):
+    random_song = random.randint(0, len(track_select)-1)
+    await message.channel.send("Playing **{}**".format(track_list[random_song]))
+    await play_ost(track_select[random_song])
 
   #Trivia quiz command
   if msg.lower() == ("mt trivia"):
