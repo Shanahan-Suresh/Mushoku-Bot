@@ -260,7 +260,8 @@ async def on_message(message):
       try:
         connect_voice = user.voice
         vc = await connect_voice.channel.connect()
-        vc.play(discord.FFmpegPCMAudio(source=('Songs/'+ost_name), executable='./ffmpeg.exe'))
+        #vc.play(discord.FFmpegPCMAudio(source=('Songs/'+ost_name), executable='./ffmpeg.exe'))
+        vc.play(discord.FFmpegPCMAudio(source=('Songs/'+ost_name)))
 
         #Listen for stop command
         async def stop_ost():
