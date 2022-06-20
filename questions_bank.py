@@ -43,6 +43,9 @@ questions = {
       "Why is a/the Sacred Beast born ?" : "C",
       "Of the three Holy Millision military knight orders, which order is put in charge of stamping out heresy ?" : "C",
       "Kishirika Kishirisu possesses 12 Demon Eyes, which she may grant to anyone she chooses. Which of the following isn't one of them ?" : "A",
-      "Kishirika Kishirisu possesses 12 Demon Eyes, which she may grant to anyone she chooses. Which of the following isn't one of them ?" : "D",
-      "Kishirika Kishirisu offered Rudeus one of her 12 Demon Eyes. Which of the following did Rudeus choose" : "B"
-    }
+      "Kishirika Kishirisu possesses 12 Demon Eyes, which she may grant to anyone she chooses. Which of the following is not one of them ?" : "D",
+      "Kishirika Kishirisu offered Rudeus one of her 12 Demon Eyes. Which of the following did Rudeus choose" : "B",
+      "Who is the currently the fastest being in the world ?" : "A",
+      "What is the name of Rudeus's first staff ?" : "C",
+      "What was the main reason which made Roxy leave her home ?" : "D"    
+      }

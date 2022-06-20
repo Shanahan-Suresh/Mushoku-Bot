@@ -45,6 +45,9 @@ choices = [
         ["A. Eyes of Destruction","B. Eyes of Magical Power","C. Eyes of Identification", "D. Eyes of Distant Sight"],
         ["A. Eyes of X-ray Vision","B. Eyes of Foresight","C. Eyes of Absorption", "D. Eyes of Mana Disruption"],
         ["A. Eyes of Distant Sight","B. Eyes of Foresight","C. Eyes of Magical Power", "D. Eyes of X-ray Vision"],
+        ["A. Almanfi of Light","B. Dragon God Orsted","C. The Sword God, Gal Farion", "D. Demon King Badigadi"],
+        ["A. Tear of the Teal Dragon","B. Greater Saint Staff - Pearl Iris ","C. Arrogant Water Dragon King - Aqua Heartia", "D. Chaos Breaker", "E. Prominent (Yubi Ori)"],
+        ["A. Roxy longed for adventure","B. Roxy got into a big fight with her parents","C. Roxy wanted to hone her magic", "D. Roxy couldn't communicate with her kind"]
       
       
               ]

@@ -403,11 +403,11 @@ async def on_message(message):
 #Function to display help menu
 async def display_embed(channel):
     embed = discord.Embed(
-        title = 'Available Commands', description = 'Changelog\n--------------\nVer 0.12 - 40 total trivia questions, new guess game mode (beta)\nVer 0.11 - Adds 6 trivia questions and an easter egg\nVer 0.1 - Trivia mode and point system',
+        title = 'Available Commands', description = 'Changelog\n--------------\nVer 0.13 - May now play series soundtracks\nVer 0.12 - 40 total trivia questions, \nnew guess game mode in development (alpha)\nVer 0.11 - Adds 6 trivia questions and an easter egg\nVer 0.1 - Trivia mode and point system',
         colour = discord.Colour.orange()
     )
 
-    embed.set_footer(text='In development v0.12')
+    embed.set_footer(text='In development v0.13')
     embed.set_image(url='https://media.discordapp.net/attachments/905934829659496458/920654143721467944/Mushoku_Tensei_Isekai_Ittara_Honki_Dasu_Logo_Japones.png')
     file = discord.File("thumbnail2.png")
     embed.set_thumbnail(url="attachment://thumbnail2.png")
